@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>무신사 아우터 가격 검색</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+<div>
+    <span>가격 : </span><input id="price" /><button id="search">검색!</button>
+</div>
+<ul id="data-list">
+
+</ul>
+<script>
+    $("#search").on("click", ()=>{
+        input_price = $("#price").val();
+        data_list = $("#data-list");
+        data_list.empty();
+        $.getJSON("/api/musinsa_search/" + input_price, (datas)=>{
+            datas.forEach((data)=>{
+                let tag = "<li>" + data.item_id + " / " + data.item_title + " / " + data.item_price + "</li>";
+                data_list.append(tag);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
